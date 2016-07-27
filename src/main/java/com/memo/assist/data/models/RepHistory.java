@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class RepHistory {
     static{
-        final float BEST_RETRIVABILITY_LEVEL = 0.9f;
+        final float BEST_RETRIVABILITY_LEVEL = 0.9f;//now it is hard coded!!
         bestRetr = new Retrievability(BEST_RETRIVABILITY_LEVEL);
     }
     public static final int INITIAL_ROUND = 0;
@@ -42,14 +42,18 @@ public class RepHistory {
 
     /**
      * get the current best repetition time. It rounds down the double result.
-     * For instance, 1.67 -> 1
-     * @return
+     * For instance, 1.67 -> 1 for day
+     * @return the index of days. 1 means the first day, 2 means the second day and so on
      */
     public int getCurrentBestRepetitionTime(){
-        return (int)forgetCurveList.get(forgetCurveList.size()-1).apply(bestRetr);
+        return (int)getCurrentForgetCurve().apply(bestRetr);
     }
 
     public Repetition getCurrentRep() {
         return currentRep;
+    }
+
+    public ForgetCurve getCurrentForgetCurve(){
+        return forgetCurveList.get(forgetCurveList.size()-1);
     }
 }
